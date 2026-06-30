@@ -399,7 +399,6 @@
       </div>
 
       <div class="buttons-container">
-        <button class="cta-button" id="confetti-btn">🎊 Celebrate! 🎊</button>
         <button class="cta-button secondary" id="wish-btn">🕯️ Make a Wish</button>
         <button class="cta-button share-btn" id="share-btn">🔗 Share This Card</button>
       </div>
@@ -438,8 +437,9 @@
       document.getElementById('gate').classList.add('hidden');
       document.getElementById('main-card').classList.add('revealed');
       document.getElementById('bday-video').play();
-      burstPetals();
-      setTimeout(burstPetals, 900);
+      burstPetals(80);
+      setTimeout(() => burstPetals(50), 400);
+      setTimeout(() => burstPetals(50), 800);
       startTypewriter();
     });
 
@@ -462,13 +462,6 @@
     const ps = document.createElement('style');
     ps.innerHTML = `@keyframes petalFall{0%{transform:translate(0,-10vh) rotate(0deg)}100%{transform:translate(var(--drift),110vh) rotate(380deg)}}`;
     document.head.appendChild(ps);
-
-    /* ---------- Confetti ---------- */
-    document.getElementById('confetti-btn').addEventListener('click', () => {
-      burstPetals(80);
-      setTimeout(() => burstPetals(50), 300);
-      setTimeout(() => burstPetals(50), 600);
-    });
 
     /* ---------- Candles ---------- */
     const candleHint = document.getElementById('candle-hint');
