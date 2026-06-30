@@ -199,13 +199,13 @@
   }
   .count-label{ font-size:0.72em; letter-spacing:0.08em; text-transform:uppercase; color:var(--rose); }
 
-  /* ---------- Video (fixed pip) ---------- */
+  /* ---------- Video (inline) ---------- */
   .video-container{
-    position:fixed; bottom:24px; right:24px; width:300px;
+    margin:34px 0;
     border-radius:18px; overflow:hidden;
-    box-shadow:0 16px 36px rgba(91,42,58,0.32);
-    border:2px solid var(--gold-soft);
-    z-index:40; display:none;
+    box-shadow:0 16px 36px rgba(91,42,58,0.18);
+    border:1px solid var(--gold-soft);
+    display:none;
   }
   .video-container.visible{ display:block; }
   .video-container video{ width:100%; height:auto; display:block; }
@@ -316,7 +316,6 @@
     .buttons-container{ flex-direction:column; }
     .cta-button{ width:100%; }
     .envelope{ width:130px; height:90px; }
-    .video-container{ width:calc(100vw - 32px); right:16px; bottom:16px; }
   }
 
   @media(prefers-reduced-motion:reduce){
@@ -332,14 +331,6 @@
     <p class="gate-title">A little something for you</p>
     <p class="gate-sub">Tap to open your card</p>
     <button class="open-button" id="open-card-btn">Open Card 💌</button>
-  </div>
-
-  <!-- Fixed video pip -->
-  <div class="video-container" id="video-pip">
-    <video id="bday-video" controls playsinline autoplay muted loop>
-      <source src="9ba4cd35-cd66-431d-bf41-86b28b05382c.mov" type="video/quicktime">
-      Your browser does not support the video tag.
-    </video>
   </div>
 
   <div class="toast" id="toast">Link copied! Share it with Chesca 💙</div>
@@ -362,6 +353,13 @@
     <p class="nickname">"Our Sweet Cupcake"</p>
 
     <div class="balloons">🎈 🎁 🎂 💙 🎈</div>
+
+    <div class="video-container" id="video-pip">
+      <video id="bday-video" controls playsinline autoplay muted loop>
+        <source src="9ba4cd35-cd66-431d-bf41-86b28b05382c.mov" type="video/quicktime">
+        Your browser does not support the video tag.
+      </video>
+    </div>
 
     <!-- Friendship countdown -->
     <div class="countdown-bar" id="countdown-bar"></div>
