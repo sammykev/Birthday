@@ -31,6 +31,19 @@
     overflow-x:hidden;
   }
 
+  /* ---------- Cursor sparkles ---------- */
+  .cursor-spark{
+    position:fixed;
+    pointer-events:none;
+    z-index:9999;
+    border-radius:50%;
+    animation:sparkFade 0.7s ease-out forwards;
+  }
+  @keyframes sparkFade{
+    0%{ opacity:1; transform:scale(1) translate(0,0); }
+    100%{ opacity:0; transform:scale(0) translate(var(--sx),var(--sy)); }
+  }
+
   /* ---------- Gate / envelope screen ---------- */
   #gate{
     position:fixed;
@@ -50,10 +63,8 @@
   #gate.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
 
   .envelope{
-    width:160px;
-    height:110px;
-    position:relative;
-    margin-bottom:34px;
+    width:160px; height:110px;
+    position:relative; margin-bottom:34px;
     animation:hover 3.4s ease-in-out infinite;
   }
   @keyframes hover{
@@ -62,8 +73,7 @@
   }
   .envelope::before{
     content:"";
-    position:absolute;
-    inset:0;
+    position:absolute; inset:0;
     background:linear-gradient(135deg, var(--blush), var(--cream));
     border:1.5px solid var(--gold-soft);
     border-radius:6px;
@@ -71,226 +81,233 @@
   }
   .envelope::after{
     content:"";
-    position:absolute;
-    top:0; left:0; right:0;
-    height:0;
+    position:absolute; top:0; left:0; right:0; height:0;
     border-left:80px solid transparent;
     border-right:80px solid transparent;
     border-top:58px solid var(--rose);
     opacity:0.9;
   }
   .seal{
-    position:absolute;
-    top:50%; left:50%;
+    position:absolute; top:50%; left:50%;
     width:38px; height:38px;
     transform:translate(-50%,-50%);
     background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 70%);
     border-radius:50%;
     box-shadow:0 4px 10px rgba(91,42,58,0.3);
     display:flex; align-items:center; justify-content:center;
-    font-size:14px;
-    color:var(--cream);
-    z-index:2;
+    font-size:14px; color:var(--cream); z-index:2;
   }
-
   .gate-title{
-    font-family:'Playfair Display', serif;
-    font-style:italic;
-    font-size:1.5em;
-    color:var(--plum-soft);
-    margin-bottom:10px;
+    font-family:'Playfair Display', serif; font-style:italic;
+    font-size:1.5em; color:var(--plum-soft); margin-bottom:10px;
   }
   .gate-sub{
-    font-family:'Mulish', sans-serif;
-    font-size:0.9em;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--rose);
-    margin-bottom:30px;
+    font-family:'Mulish', sans-serif; font-size:0.9em;
+    letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--rose); margin-bottom:30px;
   }
-
   .open-button{
-    font-family:'Mulish', sans-serif;
-    font-weight:600;
+    font-family:'Mulish', sans-serif; font-weight:600;
     letter-spacing:0.04em;
     background:linear-gradient(135deg, var(--rose), var(--plum-soft));
-    color:var(--cream);
-    border:none;
-    padding:16px 42px;
-    border-radius:50px;
-    cursor:pointer;
-    font-size:1em;
+    color:var(--cream); border:none; padding:16px 42px;
+    border-radius:50px; cursor:pointer; font-size:1em;
     box-shadow:0 14px 30px rgba(91,42,58,0.28);
     transition:transform 0.25s ease, box-shadow 0.25s ease;
   }
   .open-button:hover{ transform:translateY(-3px); box-shadow:0 18px 36px rgba(91,42,58,0.36); }
-  .open-button:active{ transform:translateY(-1px); }
 
   /* ---------- Floating petals ---------- */
   .petal{
-    position:fixed;
-    top:-5%;
-    pointer-events:none;
-    z-index:30;
-    border-radius:60% 0 60% 0;
-    opacity:0.85;
+    position:fixed; top:-5%; pointer-events:none;
+    z-index:30; border-radius:60% 0 60% 0; opacity:0.85;
   }
 
   /* ---------- Main card ---------- */
   .container{
     background:rgba(255,251,247,0.97);
-    border-radius:28px;
-    padding:64px 54px;
-    max-width:880px;
-    width:100%;
+    border-radius:28px; padding:64px 54px;
+    max-width:880px; width:100%;
     margin:40px auto;
     box-shadow:0 24px 70px rgba(91,42,58,0.16);
-    text-align:center;
-    position:relative;
-    opacity:0;
-    transform:translateY(30px);
+    text-align:center; position:relative;
+    opacity:0; transform:translateY(30px);
     transition:opacity 1s ease 0.2s, transform 1s ease 0.2s;
   }
   .container.revealed{ opacity:1; transform:translateY(0); }
-
   .container::before{
-    content:"";
-    position:absolute;
-    inset:14px;
-    border:1px solid var(--gold-soft);
-    border-radius:20px;
-    pointer-events:none;
-    opacity:0.6;
+    content:""; position:absolute; inset:14px;
+    border:1px solid var(--gold-soft); border-radius:20px;
+    pointer-events:none; opacity:0.6;
   }
 
+  /* ---------- Candles / emoji header ---------- */
   .emoji-container{
-    font-size:52px;
-    margin-bottom:14px;
-    animation:float 4s ease-in-out infinite;
+    font-size:52px; margin-bottom:6px;
+    position:relative; display:inline-block;
   }
+  .candles-row{
+    display:flex; justify-content:center; gap:8px;
+    margin-bottom:14px; font-size:2em;
+  }
+  .candle{ cursor:pointer; display:inline-block; transition:filter 0.3s; user-select:none; }
+  .candle.blown{ filter:grayscale(1) opacity(0.4); }
+  .candle-hint{
+    font-family:'Mulish', sans-serif; font-size:0.78em;
+    color:var(--rose); letter-spacing:0.04em; margin-bottom:16px;
+    opacity:1; transition:opacity 0.5s;
+  }
+  .candle-hint.hidden{ opacity:0; }
+
   @keyframes float{
     0%,100%{ transform:translateY(0) rotate(0deg); }
     50%{ transform:translateY(-14px) rotate(3deg); }
   }
 
   h1{
-    font-family:'Playfair Display', serif;
-    font-weight:700;
-    font-size:3.1em;
-    color:var(--plum);
-    margin-bottom:8px;
-    letter-spacing:0.01em;
+    font-family:'Playfair Display', serif; font-weight:700;
+    font-size:3.1em; color:var(--plum);
+    margin-bottom:8px; letter-spacing:0.01em;
   }
-
   .subtitle{
-    font-family:'Playfair Display', serif;
-    font-style:italic;
-    font-size:1.7em;
-    color:var(--rose);
-    margin-bottom:6px;
+    font-family:'Playfair Display', serif; font-style:italic;
+    font-size:1.7em; color:var(--rose); margin-bottom:6px;
   }
-
   .nickname{
-    font-family:'Mulish', sans-serif;
-    font-size:0.95em;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--gold);
-    margin-bottom:28px;
-    font-weight:600;
+    font-family:'Mulish', sans-serif; font-size:0.95em;
+    letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:28px; font-weight:600;
   }
-
   .balloons{
-    margin:26px 0;
-    letter-spacing:10px;
-    font-size:2.1em;
-    filter:saturate(0.9);
+    margin:26px 0; letter-spacing:10px; font-size:2.1em; filter:saturate(0.9);
   }
 
+  /* ---------- Friendship countdown ---------- */
+  .countdown-bar{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:16px;
+    margin:28px auto; max-width:500px;
+  }
+  .count-box{
+    background:linear-gradient(135deg, rgba(201,123,132,0.1), rgba(201,154,75,0.1));
+    border:1px solid var(--gold-soft); border-radius:16px;
+    padding:14px 22px; min-width:90px;
+    font-family:'Mulish', sans-serif;
+  }
+  .count-num{
+    font-family:'Playfair Display', serif; font-size:2em;
+    font-weight:700; color:var(--plum); display:block;
+  }
+  .count-label{ font-size:0.72em; letter-spacing:0.08em; text-transform:uppercase; color:var(--rose); }
 
   /* ---------- Video (fixed pip) ---------- */
   .video-container{
-    position:fixed;
-    bottom:24px;
-    right:24px;
-    width:300px;
-    border-radius:18px;
-    overflow:hidden;
+    position:fixed; bottom:24px; right:24px; width:300px;
+    border-radius:18px; overflow:hidden;
     box-shadow:0 16px 36px rgba(91,42,58,0.32);
     border:2px solid var(--gold-soft);
-    z-index:40;
-    display:none;
+    z-index:40; display:none;
   }
   .video-container.visible{ display:block; }
-  .video-container video{
-    width:100%;
-    height:auto;
-    display:block;
-  }
+  .video-container video{ width:100%; height:auto; display:block; }
 
-  /* ---------- Letter ---------- */
+  /* ---------- Typewriter letter ---------- */
   .letter-content{
     background:linear-gradient(135deg, rgba(201,123,132,0.06), rgba(201,154,75,0.07));
     border-left:4px solid var(--rose);
-    padding:42px 36px;
-    border-radius:16px;
-    margin:34px 0;
-    text-align:left;
-    line-height:1.9;
-    font-size:1.08em;
-    color:#3D2A33;
+    padding:42px 36px; border-radius:16px;
+    margin:34px 0; text-align:left;
+    line-height:1.9; font-size:1.08em; color:#3D2A33;
   }
-  .letter-content p{ margin-bottom:20px; }
+  .letter-content p{ margin-bottom:20px; min-height:1.9em; }
   .letter-content strong{ color:var(--plum); }
+  .type-cursor{
+    display:inline-block; width:2px; height:1em;
+    background:var(--rose); margin-left:2px;
+    vertical-align:text-bottom;
+    animation:blink 0.8s step-end infinite;
+  }
+  @keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:0; } }
 
   .signature{
-    text-align:right;
-    margin-top:28px;
-    font-family:'Playfair Display', serif;
-    font-style:italic;
-    color:var(--plum-soft);
-    font-weight:600;
+    text-align:right; margin-top:28px;
+    font-family:'Playfair Display', serif; font-style:italic;
+    color:var(--plum-soft); font-weight:600;
   }
 
+  /* ---------- Wishes sticky notes ---------- */
+  .wishes-section{ margin:40px 0; }
+  .wishes-title{
+    font-family:'Playfair Display', serif; font-size:1.5em;
+    color:var(--plum); margin-bottom:24px;
+  }
+  .sticky-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px; text-align:left;
+  }
+  .sticky{
+    padding:22px 20px; border-radius:4px;
+    font-family:'Lora', serif; font-size:0.95em; line-height:1.7;
+    color:#3D2A33;
+    box-shadow:4px 4px 12px rgba(91,42,58,0.18);
+    position:relative;
+    transform:rotate(var(--rot));
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .sticky:hover{ transform:rotate(0deg) scale(1.04); box-shadow:6px 8px 20px rgba(91,42,58,0.26); }
+  .sticky::before{
+    content:""; position:absolute; top:-10px; left:50%;
+    transform:translateX(-50%);
+    width:20px; height:20px; border-radius:50%;
+    background:rgba(91,42,58,0.15);
+  }
+  .sticky-from{
+    display:block; margin-top:14px;
+    font-family:'Mulish', sans-serif; font-size:0.78em;
+    font-weight:600; letter-spacing:0.05em; text-transform:uppercase;
+    opacity:0.7;
+  }
+
+  /* ---------- Buttons ---------- */
   .buttons-container{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:16px;
-    margin-top:40px;
+    display:flex; flex-wrap:wrap; justify-content:center;
+    gap:16px; margin-top:40px;
   }
-
   .cta-button{
-    font-family:'Mulish', sans-serif;
-    display:inline-block;
+    font-family:'Mulish', sans-serif; display:inline-block;
     background:linear-gradient(135deg, var(--rose), var(--plum-soft));
-    color:var(--cream);
-    padding:15px 38px;
-    font-size:1em;
-    font-weight:600;
-    border:none;
-    border-radius:50px;
-    cursor:pointer;
+    color:var(--cream); padding:15px 38px;
+    font-size:1em; font-weight:600; border:none;
+    border-radius:50px; cursor:pointer;
     transition:transform 0.25s ease, box-shadow 0.25s ease;
     box-shadow:0 12px 28px rgba(91,42,58,0.26);
   }
   .cta-button:hover{ transform:translateY(-3px); box-shadow:0 16px 36px rgba(91,42,58,0.34); }
   .cta-button:active{ transform:translateY(-1px); }
   .cta-button.secondary{ background:linear-gradient(135deg, var(--gold), var(--gold-soft)); color:var(--plum); }
+  .cta-button.share-btn{ background:linear-gradient(135deg,#4a90d9,#2d6abf); }
+
+  /* ---------- Share toast ---------- */
+  .toast{
+    position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--plum); color:var(--cream);
+    font-family:'Mulish', sans-serif; font-size:0.9em;
+    padding:12px 28px; border-radius:50px;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.3s ease, transform 0.3s ease;
+    z-index:100; white-space:nowrap;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 
   .heart{ color:var(--rose); display:inline-block; animation:pulse 1.8s ease-in-out infinite; }
   @keyframes pulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.18); } }
 
   .footer{
-    margin-top:42px;
-    color:#A98A95;
-    font-size:0.92em;
+    margin-top:42px; color:#A98A95; font-size:0.92em;
     font-family:'Mulish', sans-serif;
-    border-top:1px solid var(--blush);
-    padding-top:20px;
+    border-top:1px solid var(--blush); padding-top:20px;
   }
 
-  @media (max-width:600px){
+  @media(max-width:600px){
     .container{ padding:42px 22px; }
     h1{ font-size:2.1em; }
     .subtitle{ font-size:1.3em; }
@@ -302,24 +319,22 @@
     .video-container{ width:calc(100vw - 32px); right:16px; bottom:16px; }
   }
 
-  @media (prefers-reduced-motion: reduce){
+  @media(prefers-reduced-motion:reduce){
     *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
   }
 </style>
 </head>
 <body>
 
-  <!-- Gate screen: tap to open the card. This also satisfies browsers'
-       requirement of a user gesture before unmuted video / audio can play. -->
+  <!-- Gate -->
   <div id="gate">
-    <div class="envelope">
-      <div class="seal">💙</div>
-    </div>
+    <div class="envelope"><div class="seal">💙</div></div>
     <p class="gate-title">A little something for you</p>
     <p class="gate-sub">Tap to open your card</p>
     <button class="open-button" id="open-card-btn">Open Card 💌</button>
   </div>
 
+  <!-- Fixed video pip -->
   <div class="video-container" id="video-pip">
     <video id="bday-video" controls playsinline autoplay muted loop>
       <source src="9ba4cd35-cd66-431d-bf41-86b28b05382c.mov" type="video/quicktime">
@@ -327,38 +342,68 @@
     </video>
   </div>
 
+  <div class="toast" id="toast">Link copied! Share it with Chesca 💙</div>
+
   <div class="container" id="main-card">
-    <div class="emoji-container">🧁</div>
+
+    <!-- Glowing candles -->
+    <div class="candles-row" id="candles">
+      <span class="candle" title="Click to blow out!">🕯️</span>
+      <span class="candle" title="Click to blow out!">🕯️</span>
+      <span class="candle" title="Click to blow out!">🕯️</span>
+      <span class="candle" title="Click to blow out!">🕯️</span>
+      <span class="candle" title="Click to blow out!">🕯️</span>
+    </div>
+    <p class="candle-hint" id="candle-hint">✨ Tap a candle to make a wish!</p>
+
+    <div class="emoji-container" style="animation:float 4s ease-in-out infinite;">🧁</div>
     <h1>🎉 Happy Birthday! 💙</h1>
     <p class="subtitle">Our Beautiful Ogechi</p>
     <p class="nickname">"Our Sweet Cupcake"</p>
 
     <div class="balloons">🎈 🎁 🎂 💙 🎈</div>
 
-    <div class="letter-content">
-      <p>My sweet cupcake 🧁, our baby girl, our beautiful and elegant Ogechi. 💙</p>
-      <p>When you look in the mirror, I hope you see just how beautiful you are. I hope you love your kind heart, your gentle soul, your bright contagious smile, and the warmth in your hug.</p>
-      <p>You're everything worth celebrating simply because you're you. We found the best girl in the worst generation, and there's no way we're letting her go. ❤️</p>
-      <p><strong>When we first met in 2021,</strong> none of us were looking for friendship or love—we were honestly running away from it. But you were so kind, gentle, and genuine that, somehow, we let our guard down.</p>
-      <p>Looking back now, I can truly say you've been an incredible sister and friend. Through every season, you've shown us what true friendship looks like. You've supported us, stood by us, and never once let us feel alone.</p>
-      <p>I know I haven't always been easy to deal with (😂 you already know who's talking), but thank you for never giving up on me. We love and cherish you more than words can express.</p>
-      <p>Sometimes you were our safe place. We found comfort in each other, laughed until our stomachs hurt, and smiled so much our cheeks couldn't take it anymore. Those memories will always stay with us.</p>
-      <p>I'm so proud of the woman you're becoming. You deserve every beautiful thing life has in store for you. I want you to always remember that you are deeply loved. Your happiness genuinely matters to us.</p>
-      <p>We wish we could marry ourselves, but girl… you people love Preeq too much. 😂❤️</p>
-      <p>As we continue this journey of friendship and sisterhood, I pray our bond only grows stronger. May no distance or distraction ever come between us.</p>
-      <p style="color:var(--rose); font-weight:bold;">And please don't forget to be sending me money abeg. 😂💸</p>
-      <p>Please accept this little birthday gift. 🎁 It may be small, but it comes with so much love, appreciation, and intention. It's our little way of reminding you that you are seen, valued, and adored.</p>
-      <p style="margin-top:30px; font-size:1.2em;"><strong>Happy Birthday, sweetheart. 🥹💙</strong></p>
-      <p>I pray God blesses you with many more beautiful years filled with peace, happiness, good health, endless laughter, and overflowing love. May every sincere desire of your heart be granted.</p>
-      <p style="font-size:1.15em; font-weight:bold; color:var(--plum);">We love you so much, Chesca. Today and always. 🥹💙</p>
-      <div class="signature">
-        <p>With all our love,</p>
-        <p>Your forever lovers and crush 🤍</p>
+    <!-- Friendship countdown -->
+    <div class="countdown-bar" id="countdown-bar"></div>
+
+    <!-- Typewriter letter -->
+    <div class="letter-content" id="letter-content"></div>
+
+    <!-- Wishes sticky notes -->
+    <div class="wishes-section">
+      <p class="wishes-title">💌 Blessings & Wishes for You</p>
+      <div class="sticky-grid">
+        <div class="sticky" style="background:#FFF9C4; --rot:-2deg;">
+          May every door you knock on swing wide open for you. You deserve every good thing coming your way. 🌻
+          <span class="sticky-from">— Always rooting for you</span>
+        </div>
+        <div class="sticky" style="background:#FCE4EC; --rot:1.5deg;">
+          Wishing you a year full of laughter, good food, great vibes, and zero stress. You've earned it! 🎀
+          <span class="sticky-from">— Your biggest fan</span>
+        </div>
+        <div class="sticky" style="background:#E8F5E9; --rot:-1deg;">
+          May God's favour follow you into every room you walk into this year and beyond. 🙏💚
+          <span class="sticky-from">— With prayer & love</span>
+        </div>
+        <div class="sticky" style="background:#E3F2FD; --rot:2deg;">
+          Here's to more memories, more late-night talks, and more of us being absolutely ridiculous together. 😂💙
+          <span class="sticky-from">— Your person</span>
+        </div>
+        <div class="sticky" style="background:#F3E5F5; --rot:-1.5deg;">
+          You are the kind of friend that makes life feel lighter. Never stop being you, Chesca. 💜✨
+          <span class="sticky-from">— Forever grateful</span>
+        </div>
+        <div class="sticky" style="background:#FFF3E0; --rot:1deg;">
+          May this new year of your life be the best chapter yet — filled with peace, purpose, and overflowing joy. 🧡
+          <span class="sticky-from">— With all our hearts</span>
+        </div>
       </div>
     </div>
 
     <div class="buttons-container">
-      <button class="cta-button" onclick="burstPetals()">🎊 Celebrate! 🎊</button>
+      <button class="cta-button" id="confetti-btn">🎊 Celebrate! 🎊</button>
+      <button class="cta-button secondary" id="wish-btn">🕯️ Make a Wish</button>
+      <button class="cta-button share-btn" id="share-btn">🔗 Share This Card</button>
     </div>
 
     <div class="footer">
@@ -367,6 +412,24 @@
   </div>
 
   <script>
+    /* ---------- Cursor sparkles ---------- */
+    document.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.35) return;
+      const s = document.createElement('div');
+      s.className = 'cursor-spark';
+      const size = 4 + Math.random() * 6;
+      const colors = ['#C97B84','#E4C893','#C99A4B','#F2CFC4','#5B2A3A'];
+      s.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${e.clientX}px; top:${e.clientY}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        --sx:${(Math.random()-0.5)*30}px;
+        --sy:${-10-Math.random()*20}px;
+      `;
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 700);
+    });
+
     /* ---------- Gate / open card ---------- */
     const gate = document.getElementById('gate');
     const card = document.getElementById('main-card');
@@ -378,38 +441,181 @@
       document.getElementById('bday-video').play();
       burstPetals();
       setTimeout(burstPetals, 900);
+      startTypewriter();
     });
 
     /* ---------- Floating petals ---------- */
-    function burstPetals(){
-      const count = 36;
-      const colors = ['#C97B84', '#F2CFC4', '#C99A4B', '#E4C893', '#5B2A3A'];
+    function burstPetals(count = 36){
+      const colors = ['#C97B84','#F2CFC4','#C99A4B','#E4C893','#5B2A3A'];
       for (let i = 0; i < count; i++) {
-        const petal = document.createElement('div');
-        petal.className = 'petal';
+        const p = document.createElement('div');
+        p.className = 'petal';
         const size = 8 + Math.random() * 10;
-        petal.style.width = size + 'px';
-        petal.style.height = size * 0.7 + 'px';
-        petal.style.left = Math.random() * 100 + '%';
-        petal.style.background = colors[Math.floor(Math.random() * colors.length)];
-        const duration = 3 + Math.random() * 2.5;
+        p.style.width = size + 'px';
+        p.style.height = size * 0.7 + 'px';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        const dur = 3 + Math.random() * 2.5;
         const drift = (Math.random() - 0.5) * 160;
-        petal.style.animation = `petalFall ${duration}s ease-in forwards`;
-        petal.style.setProperty('--drift', drift + 'px');
-        petal.style.opacity = (0.6 + Math.random() * 0.4).toString();
-        document.body.appendChild(petal);
-        setTimeout(() => petal.remove(), duration * 1000 + 200);
+        p.style.animation = `petalFall ${dur}s ease-in forwards`;
+        p.style.setProperty('--drift', drift + 'px');
+        p.style.opacity = (0.6 + Math.random() * 0.4).toString();
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), dur * 1000 + 200);
       }
     }
 
     const petalStyle = document.createElement('style');
     petalStyle.innerHTML = `
       @keyframes petalFall {
-        0% { transform: translate(0, -10vh) rotate(0deg); }
-        100% { transform: translate(var(--drift), 110vh) rotate(380deg); }
+        0% { transform: translate(0,-10vh) rotate(0deg); }
+        100% { transform: translate(var(--drift),110vh) rotate(380deg); }
       }
     `;
     document.head.appendChild(petalStyle);
+
+    /* ---------- Confetti cannon (bigger burst + shapes) ---------- */
+    document.getElementById('confetti-btn').addEventListener('click', () => {
+      burstPetals(80);
+      // also burst from left and right corners
+      setTimeout(() => burstPetals(50), 300);
+      setTimeout(() => burstPetals(50), 600);
+    });
+
+    /* ---------- Candles ---------- */
+    const candleHint = document.getElementById('candle-hint');
+    let wishCount = 0;
+    document.querySelectorAll('.candle').forEach(c => {
+      c.addEventListener('click', () => {
+        if (c.classList.contains('blown')) return;
+        c.classList.add('blown');
+        c.textContent = '🫙';
+        wishCount++;
+        burstPetals(10);
+        const total = document.querySelectorAll('.candle').length;
+        if (wishCount === total) {
+          candleHint.textContent = '🥹 All wishes made! May they all come true, Chesca!';
+          candleHint.classList.remove('hidden');
+        } else {
+          candleHint.textContent = `✨ ${total - wishCount} wish${total - wishCount > 1 ? 'es' : ''} left — make them count!`;
+        }
+      });
+    });
+
+    document.getElementById('wish-btn').addEventListener('click', () => {
+      const unblown = document.querySelectorAll('.candle:not(.blown)');
+      if (unblown.length) {
+        unblown[0].click();
+      } else {
+        candleHint.textContent = '🥹 All wishes made! May they all come true!';
+        candleHint.classList.remove('hidden');
+      }
+    });
+
+    /* ---------- Friendship countdown ---------- */
+    const friendshipStart = new Date('2021-01-01');
+    const now = new Date();
+    const diffMs = now - friendshipStart;
+    const diffDays = Math.floor(diffMs / (1000*60*60*24));
+    const diffYears = Math.floor(diffDays / 365);
+    const diffMonths = Math.floor((diffDays % 365) / 30);
+    const diffDaysRem = diffDays % 30;
+
+    const bar = document.getElementById('countdown-bar');
+    [
+      [diffYears, 'Years of friendship'],
+      [diffMonths, 'Months'],
+      [diffDaysRem, 'Days'],
+      [diffDays, 'Total days 💙'],
+    ].forEach(([num, label]) => {
+      const box = document.createElement('div');
+      box.className = 'count-box';
+      box.innerHTML = `<span class="count-num">${num.toLocaleString()}</span><span class="count-label">${label}</span>`;
+      bar.appendChild(box);
+    });
+
+    /* ---------- Typewriter letter ---------- */
+    const letterParagraphs = [
+      `My sweet cupcake 🧁, our baby girl, our beautiful and elegant Ogechi. 💙`,
+      `When you look in the mirror, I hope you see just how beautiful you are. I hope you love your kind heart, your gentle soul, your bright contagious smile, and the warmth in your hug.`,
+      `You're everything worth celebrating simply because you're <em>you</em>. We found the best girl in the worst generation, and there's no way we're letting her go. ❤️`,
+      `<strong>When we first met in 2021,</strong> none of us were looking for friendship or love—we were honestly running away from it. But you were so kind, gentle, and genuine that, somehow, we let our guard down.`,
+      `Looking back now, I can truly say you've been an incredible sister and friend. Through every season, you've shown us what true friendship looks like. You've supported us, stood by us, and never once let us feel alone.`,
+      `I know I haven't always been easy to deal with (😂 you already know who's talking), but thank you for never giving up on me. We love and cherish you more than words can express.`,
+      `Sometimes you were our safe place. We found comfort in each other, laughed until our stomachs hurt, and smiled so much our cheeks couldn't take it anymore. Those memories will always stay with us.`,
+      `I'm so proud of the woman you're becoming. You deserve every beautiful thing life has in store for you. I want you to always remember that you are deeply loved. Your happiness genuinely matters to us.`,
+      `We wish we could marry ourselves, but girl… you people love Preeq too much. 😂❤️`,
+      `As we continue this journey of friendship and sisterhood, I pray our bond only grows stronger. May no distance or distraction ever come between us.`,
+      `<span style="color:var(--rose);font-weight:bold;">And please don't forget to be sending me money abeg. 😂💸</span>`,
+      `Please accept this little birthday gift. 🎁 It may be small, but it comes with so much love, appreciation, and intention. It's our little way of reminding you that you are seen, valued, and adored.`,
+      `<span style="font-size:1.2em;"><strong>Happy Birthday, sweetheart. 🥹💙</strong></span>`,
+      `I pray God blesses you with many more beautiful years filled with peace, happiness, good health, endless laughter, and overflowing love. May every sincere desire of your heart be granted.`,
+      `<span style="font-size:1.15em;font-weight:bold;color:var(--plum);">We love you so much, Chesca. Today and always. 🥹💙</span>`,
+    ];
+
+    function startTypewriter(){
+      const container = document.getElementById('letter-content');
+      container.innerHTML = '';
+      let pIdx = 0;
+
+      function typeNextParagraph(){
+        if (pIdx >= letterParagraphs.length) {
+          // signature
+          const sig = document.createElement('div');
+          sig.className = 'signature';
+          sig.innerHTML = '<p>With all our love,</p><p>Your forever lovers and crush 🤍</p>';
+          container.appendChild(sig);
+          return;
+        }
+
+        const p = document.createElement('p');
+        container.appendChild(p);
+
+        // strip html tags for character-by-character typing, then swap in full html
+        const rawHTML = letterParagraphs[pIdx];
+        const stripped = rawHTML.replace(/<[^>]+>/g, '');
+        let charIdx = 0;
+        const cursor = document.createElement('span');
+        cursor.className = 'type-cursor';
+
+        const interval = setInterval(() => {
+          p.textContent = stripped.slice(0, charIdx + 1);
+          p.appendChild(cursor);
+          charIdx++;
+          if (charIdx >= stripped.length) {
+            clearInterval(interval);
+            p.innerHTML = rawHTML; // swap to styled html
+            cursor.remove();
+            pIdx++;
+            setTimeout(typeNextParagraph, 180);
+          }
+        }, 18);
+      }
+
+      typeNextParagraph();
+    }
+
+    /* ---------- Share button ---------- */
+    document.getElementById('share-btn').addEventListener('click', async () => {
+      const toast = document.getElementById('toast');
+      const url = window.location.href;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: '🎉 Happy Birthday Chesca! 💙', url });
+        } catch(_) {}
+      } else {
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch(_) {
+          const ta = document.createElement('textarea');
+          ta.value = url; document.body.appendChild(ta);
+          ta.select(); document.execCommand('copy');
+          ta.remove();
+        }
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+    });
   </script>
 </body>
 </html>
