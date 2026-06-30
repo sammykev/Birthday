@@ -9,13 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Mulish:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#FBF1E6;
-    --blush:#F2CFC4;
-    --rose:#C97B84;
-    --plum:#5B2A3A;
-    --plum-soft:#7A4456;
-    --gold:#C99A4B;
-    --gold-soft:#E4C893;
+    --cream:#F5EDE0;       /* warm parchment */
+    --blush:#C8DCF0;       /* soft blue */
+    --rose:#2563A8;        /* rich blue (replaces rose) */
+    --plum:#2C1A0E;        /* deep chocolate brown */
+    --plum-soft:#5C3317;   /* medium brown */
+    --gold:#4A7FB5;        /* steel blue (replaces gold) */
+    --gold-soft:#A8C8E8;   /* light blue */
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -25,8 +25,8 @@
   body{
     font-family:'Lora', serif;
     background:
-      radial-gradient(circle at 15% 20%, rgba(242,207,196,0.55), transparent 45%),
-      radial-gradient(circle at 85% 80%, rgba(201,154,75,0.18), transparent 50%),
+      radial-gradient(circle at 15% 20%, rgba(200,220,240,0.5), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(92,51,23,0.12), transparent 50%),
       var(--cream);
     color:var(--plum);
     overflow-x:hidden;
@@ -48,7 +48,7 @@
     display:flex; flex-direction:column;
     align-items:center; justify-content:center;
     background:
-      radial-gradient(circle at 50% 30%, rgba(242,207,196,0.7), transparent 55%),
+      radial-gradient(circle at 50% 30%, rgba(200,220,240,0.6), transparent 55%),
       var(--cream);
     z-index:50;
     transition:opacity 1s ease, visibility 1s ease;
@@ -68,18 +68,18 @@
     content:""; position:absolute; inset:0;
     background:linear-gradient(135deg, var(--blush), var(--cream));
     border:1.5px solid var(--gold-soft); border-radius:6px;
-    box-shadow:0 18px 40px rgba(91,42,58,0.18);
+    box-shadow:0 18px 40px rgba(44,26,14,0.18);
   }
   .envelope::after{
     content:""; position:absolute; top:0; left:0; right:0; height:0;
     border-left:80px solid transparent; border-right:80px solid transparent;
-    border-top:58px solid var(--rose); opacity:0.9;
+    border-top:58px solid var(--gold); opacity:0.9;
   }
   .seal{
     position:absolute; top:50%; left:50%;
     width:38px; height:38px; transform:translate(-50%,-50%);
     background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 70%);
-    border-radius:50%; box-shadow:0 4px 10px rgba(91,42,58,0.3);
+    border-radius:50%; box-shadow:0 4px 10px rgba(44,26,14,0.3);
     display:flex; align-items:center; justify-content:center;
     font-size:14px; color:var(--cream); z-index:2;
   }
@@ -90,10 +90,10 @@
     background:linear-gradient(135deg, var(--rose), var(--plum-soft));
     color:var(--cream); border:none; padding:16px 42px;
     border-radius:50px; cursor:pointer; font-size:1em;
-    box-shadow:0 14px 30px rgba(91,42,58,0.28);
+    box-shadow:0 14px 30px rgba(44,26,14,0.28);
     transition:transform 0.25s, box-shadow 0.25s;
   }
-  .open-button:hover{ transform:translateY(-3px); box-shadow:0 18px 36px rgba(91,42,58,0.36); }
+  .open-button:hover{ transform:translateY(-3px); box-shadow:0 18px 36px rgba(44,26,14,0.36); }
 
   /* ---------- Petals ---------- */
   .petal{ position:fixed; top:-5%; pointer-events:none; z-index:30; border-radius:60% 0 60% 0; }
@@ -113,7 +113,7 @@
     display:flex; flex-direction:column;
     align-items:center; justify-content:center;
     padding:32px 28px;
-    background:linear-gradient(160deg, rgba(242,207,196,0.45) 0%, rgba(201,154,75,0.12) 100%);
+    background:linear-gradient(160deg, rgba(200,220,240,0.45) 0%, rgba(92,51,23,0.08) 100%);
     border-right:1px solid var(--gold-soft);
     text-align:center;
     gap:10px;
@@ -136,7 +136,7 @@
   /* Inline video in left panel */
   .video-wrap{
     width:100%; border-radius:14px; overflow:hidden;
-    box-shadow:0 10px 28px rgba(91,42,58,0.22);
+    box-shadow:0 10px 28px rgba(44,26,14,0.22);
     border:1px solid var(--gold-soft); flex-shrink:0;
   }
   .video-wrap video{ width:100%; height:auto; display:block; }
@@ -152,7 +152,7 @@
   /* Friendship countdown */
   .countdown-bar{ display:flex; flex-wrap:wrap; gap:12px; }
   .count-box{
-    background:linear-gradient(135deg, rgba(201,123,132,0.1), rgba(201,154,75,0.1));
+    background:linear-gradient(135deg, rgba(37,99,168,0.08), rgba(92,51,23,0.08));
     border:1px solid var(--gold-soft); border-radius:14px;
     padding:12px 18px; min-width:80px;
     font-family:'Mulish',sans-serif; flex:1;
@@ -162,7 +162,7 @@
 
   /* Letter */
   .letter-content{
-    background:linear-gradient(135deg, rgba(201,123,132,0.06), rgba(201,154,75,0.07));
+    background:linear-gradient(135deg, rgba(37,99,168,0.06), rgba(92,51,23,0.06));
     border-left:4px solid var(--rose);
     padding:34px 28px; border-radius:16px;
     line-height:1.9; font-size:1em; color:#3D2A33;
@@ -183,14 +183,14 @@
   .sticky{
     padding:18px 16px; border-radius:4px;
     font-family:'Lora',serif; font-size:0.88em; line-height:1.65;
-    color:#3D2A33; box-shadow:4px 4px 12px rgba(91,42,58,0.18);
+    color:#2A1A0E; box-shadow:4px 4px 12px rgba(44,26,14,0.18);
     transform:rotate(var(--rot));
     transition:transform 0.2s, box-shadow 0.2s; position:relative;
   }
-  .sticky:hover{ transform:rotate(0deg) scale(1.04); box-shadow:6px 8px 20px rgba(91,42,58,0.26); }
+  .sticky:hover{ transform:rotate(0deg) scale(1.04); box-shadow:6px 8px 20px rgba(44,26,14,0.26); }
   .sticky::before{
     content:""; position:absolute; top:-9px; left:50%; transform:translateX(-50%);
-    width:18px; height:18px; border-radius:50%; background:rgba(91,42,58,0.15);
+    width:18px; height:18px; border-radius:50%; background:rgba(44,26,14,0.15);
   }
   .sticky-from{ display:block; margin-top:12px; font-family:'Mulish',sans-serif; font-size:0.75em; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; opacity:0.7; }
 
@@ -205,22 +205,22 @@
     position:relative; border-radius:12px; overflow:hidden;
     aspect-ratio:9/16;
     cursor:pointer;
-    box-shadow:0 6px 18px rgba(91,42,58,0.18);
+    box-shadow:0 6px 18px rgba(44,26,14,0.18);
     border:1px solid var(--gold-soft);
     background:#000;
     transition:transform 0.2s, box-shadow 0.2s;
   }
-  .gallery-item:hover{ transform:scale(1.03); box-shadow:0 10px 26px rgba(91,42,58,0.28); }
+  .gallery-item:hover{ transform:scale(1.03); box-shadow:0 10px 26px rgba(44,26,14,0.28); }
   .gallery-item video,
   .gallery-item img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
   .gallery-item .play-badge{
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:center;
-    background:rgba(91,42,58,0.28);
+    background:rgba(44,26,14,0.28);
     font-size:2.2em;
     transition:background 0.2s;
   }
-  .gallery-item:hover .play-badge{ background:rgba(91,42,58,0.18); }
+  .gallery-item:hover .play-badge{ background:rgba(44,26,14,0.18); }
 
   /* Lightbox */
   #lightbox{
@@ -262,11 +262,11 @@
     font-size:0.95em; font-weight:600; border:none;
     border-radius:50px; cursor:pointer;
     transition:transform 0.25s, box-shadow 0.25s;
-    box-shadow:0 10px 24px rgba(91,42,58,0.26);
+    box-shadow:0 10px 24px rgba(44,26,14,0.26);
   }
-  .cta-button:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(91,42,58,0.34); }
+  .cta-button:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(44,26,14,0.34); }
   .cta-button.secondary{ background:linear-gradient(135deg, var(--gold), var(--gold-soft)); color:var(--plum); }
-  .cta-button.share-btn{ background:linear-gradient(135deg,#4a90d9,#2d6abf); }
+  .cta-button.share-btn{ background:linear-gradient(135deg,#5C3317,#3A1F0A); }
 
   /* Toast */
   .toast{
@@ -427,7 +427,7 @@
       const s = document.createElement('div');
       s.className = 'cursor-spark';
       const size = 4 + Math.random() * 6;
-      const colors = ['#C97B84','#E4C893','#C99A4B','#F2CFC4','#5B2A3A'];
+      const colors = ['#2563A8','#C8DCF0','#5C3317','#A8C8E8','#4A7FB5'];
       s.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX}px;top:${e.clientY}px;background:${colors[Math.floor(Math.random()*colors.length)]};--sx:${(Math.random()-0.5)*30}px;--sy:${-10-Math.random()*20}px;`;
       document.body.appendChild(s);
       setTimeout(() => s.remove(), 700);
@@ -445,7 +445,7 @@
 
     /* ---------- Petals ---------- */
     function burstPetals(count = 36){
-      const colors = ['#C97B84','#F2CFC4','#C99A4B','#E4C893','#5B2A3A'];
+      const colors = ['#2563A8','#C8DCF0','#5C3317','#A8C8E8','#4A7FB5'];
       for (let i = 0; i < count; i++) {
         const p = document.createElement('div');
         p.className = 'petal';
