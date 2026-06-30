@@ -194,6 +194,65 @@
   }
   .sticky-from{ display:block; margin-top:12px; font-family:'Mulish',sans-serif; font-size:0.75em; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; opacity:0.7; }
 
+  /* ---------- Gallery ---------- */
+  .gallery-title{ font-family:'Playfair Display',serif; font-size:1.3em; color:var(--plum); margin-bottom:18px; }
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+    gap:10px;
+  }
+  .gallery-item{
+    position:relative; border-radius:12px; overflow:hidden;
+    aspect-ratio:9/16;
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(91,42,58,0.18);
+    border:1px solid var(--gold-soft);
+    background:#000;
+    transition:transform 0.2s, box-shadow 0.2s;
+  }
+  .gallery-item:hover{ transform:scale(1.03); box-shadow:0 10px 26px rgba(91,42,58,0.28); }
+  .gallery-item video,
+  .gallery-item img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+  .gallery-item .play-badge{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(91,42,58,0.28);
+    font-size:2.2em;
+    transition:background 0.2s;
+  }
+  .gallery-item:hover .play-badge{ background:rgba(91,42,58,0.18); }
+
+  /* Lightbox */
+  #lightbox{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(15,5,10,0.94);
+    display:none; align-items:center; justify-content:center;
+  }
+  #lightbox.open{ display:flex; }
+  #lightbox-media{ max-width:92vw; max-height:88vh; border-radius:14px; outline:none; }
+  #lightbox-close{
+    position:absolute; top:16px; right:20px;
+    background:rgba(255,255,255,0.12); color:#fff;
+    border:none; border-radius:50%; width:38px; height:38px;
+    font-size:18px; cursor:pointer; line-height:38px; text-align:center;
+    transition:background 0.2s;
+  }
+  #lightbox-close:hover{ background:rgba(255,255,255,0.25); }
+  #lightbox-prev, #lightbox-next{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(255,255,255,0.12); color:#fff;
+    border:none; border-radius:50%; width:42px; height:42px;
+    font-size:20px; cursor:pointer; transition:background 0.2s;
+  }
+  #lightbox-prev{ left:14px; }
+  #lightbox-next{ right:14px; }
+  #lightbox-prev:hover,#lightbox-next:hover{ background:rgba(255,255,255,0.25); }
+  #lightbox-caption{
+    position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
+    color:rgba(255,255,255,0.7); font-family:'Mulish',sans-serif; font-size:0.82em;
+    letter-spacing:0.05em;
+  }
+
   /* Buttons */
   .buttons-container{ display:flex; flex-wrap:wrap; gap:12px; }
   .cta-button{
@@ -324,6 +383,21 @@
         </div>
       </div>
 
+      <!-- Gallery -->
+      <div>
+        <p class="gallery-title">🎞️ Our Memories Together</p>
+        <div class="gallery-grid" id="gallery-grid">
+          <div class="gallery-item" data-type="video" data-src="IMG_2053.mp4" data-caption="Memory 1 💙">
+            <video src="IMG_2053.mp4" muted playsinline preload="metadata"></video>
+            <div class="play-badge">▶️</div>
+          </div>
+          <div class="gallery-item" data-type="video" data-src="IMG_2054.mp4" data-caption="Memory 2 💙">
+            <video src="IMG_2054.mp4" muted playsinline preload="metadata"></video>
+            <div class="play-badge">▶️</div>
+          </div>
+        </div>
+      </div>
+
       <div class="buttons-container">
         <button class="cta-button" id="confetti-btn">🎊 Celebrate! 🎊</button>
         <button class="cta-button secondary" id="wish-btn">🕯️ Make a Wish</button>
@@ -336,6 +410,15 @@
 
     </div><!-- /right-panel -->
   </div><!-- /main-card -->
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <button id="lightbox-close">✕</button>
+    <button id="lightbox-prev">‹</button>
+    <video id="lightbox-media" controls playsinline></video>
+    <button id="lightbox-next">›</button>
+    <span id="lightbox-caption"></span>
+  </div>
 
   <script>
     /* ---------- Cursor sparkles ---------- */
@@ -476,6 +559,48 @@
       }
       next();
     }
+
+    /* ---------- Gallery lightbox ---------- */
+    const lightbox = document.getElementById('lightbox');
+    const lbMedia = document.getElementById('lightbox-media');
+    const lbCaption = document.getElementById('lightbox-caption');
+    const items = Array.from(document.querySelectorAll('.gallery-item'));
+    let currentIdx = 0;
+
+    function openLightbox(idx){
+      currentIdx = idx;
+      const item = items[idx];
+      lbMedia.src = item.dataset.src;
+      lbCaption.textContent = `${idx + 1} / ${items.length}  ${item.dataset.caption || ''}`;
+      lightbox.classList.add('open');
+      lbMedia.play();
+    }
+
+    function closeLightbox(){
+      lbMedia.pause();
+      lbMedia.src = '';
+      lightbox.classList.remove('open');
+    }
+
+    items.forEach((item, i) => item.addEventListener('click', () => openLightbox(i)));
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+    document.getElementById('lightbox-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox((currentIdx - 1 + items.length) % items.length);
+    });
+    document.getElementById('lightbox-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox((currentIdx + 1) % items.length);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') openLightbox((currentIdx - 1 + items.length) % items.length);
+      if (e.key === 'ArrowRight') openLightbox((currentIdx + 1) % items.length);
+    });
 
     /* ---------- Share ---------- */
     document.getElementById('share-btn').addEventListener('click', async () => {
