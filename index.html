@@ -356,6 +356,21 @@
       <!-- Typewriter letter -->
       <div class="letter-content" id="letter-content"></div>
 
+      <!-- Gallery -->
+      <div>
+        <p class="gallery-title">🎞️ Our Memories Together</p>
+        <div class="gallery-grid" id="gallery-grid">
+          <div class="gallery-item" data-type="video" data-src="IMG_2053.mp4" data-caption="Memory 1 💙">
+            <video src="IMG_2053.mp4" muted playsinline preload="metadata"></video>
+            <div class="play-badge">▶️</div>
+          </div>
+          <div class="gallery-item" data-type="video" data-src="IMG_2054.mp4" data-caption="Memory 2 💙">
+            <video src="IMG_2054.mp4" muted playsinline preload="metadata"></video>
+            <div class="play-badge">▶️</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Wishes -->
       <div>
         <p class="wishes-title">💌 Blessings & Wishes for You</p>
@@ -383,21 +398,6 @@
           <div class="sticky" style="background:#FFF3E0;--rot:1deg;">
             May this new year of your life be the best chapter yet — filled with peace, purpose, and overflowing joy. 🧡
             <span class="sticky-from">— With all our hearts</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gallery -->
-      <div>
-        <p class="gallery-title">🎞️ Our Memories Together</p>
-        <div class="gallery-grid" id="gallery-grid">
-          <div class="gallery-item" data-type="video" data-src="IMG_2053.mp4" data-caption="Memory 1 💙">
-            <video src="IMG_2053.mp4" muted playsinline preload="metadata"></video>
-            <div class="play-badge">▶️</div>
-          </div>
-          <div class="gallery-item" data-type="video" data-src="IMG_2054.mp4" data-caption="Memory 2 💙">
-            <video src="IMG_2054.mp4" muted playsinline preload="metadata"></video>
-            <div class="play-badge">▶️</div>
           </div>
         </div>
       </div>
@@ -448,6 +448,12 @@
     });
 
     /* ---------- Petals ---------- */
+    (function(){
+      const ps = document.createElement('style');
+      ps.innerHTML = `@keyframes petalFall{0%{transform:translate(0,-10vh) rotate(0deg)}100%{transform:translate(var(--drift),110vh) rotate(380deg)}}`;
+      document.head.appendChild(ps);
+    })();
+
     function burstPetals(count = 36){
       const colors = ['#5B9BD5','#C4956A','#3A7CC4','#E8D8C4','#8B5E3C'];
       for (let i = 0; i < count; i++) {
@@ -463,9 +469,6 @@
         setTimeout(() => p.remove(), dur * 1000 + 200);
       }
     }
-    const ps = document.createElement('style');
-    ps.innerHTML = `@keyframes petalFall{0%{transform:translate(0,-10vh) rotate(0deg)}100%{transform:translate(var(--drift),110vh) rotate(380deg)}}`;
-    document.head.appendChild(ps);
 
     /* ---------- Candles ---------- */
     const candleHint = document.getElementById('candle-hint');
