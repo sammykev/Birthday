@@ -207,32 +207,6 @@
     filter:saturate(0.9);
   }
 
-  /* ---------- Music player ---------- */
-  .music-bar{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
-    margin:30px auto;
-    padding:14px 22px;
-    background:linear-gradient(135deg, rgba(201,123,132,0.1), rgba(201,154,75,0.1));
-    border:1px solid var(--gold-soft);
-    border-radius:50px;
-    max-width:340px;
-    font-family:'Mulish', sans-serif;
-    font-size:0.85em;
-    color:var(--plum-soft);
-  }
-  .vinyl{
-    width:26px; height:26px;
-    border-radius:50%;
-    background:radial-gradient(circle, var(--plum) 0 18%, var(--gold-soft) 19% 24%, var(--plum) 25% 100%);
-    flex-shrink:0;
-  }
-  .vinyl.spinning{ animation:spin 2.6s linear infinite; }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  #music-status{ font-weight:600; }
-  #spotify-embed{ position:absolute; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; }
 
   /* ---------- Video ---------- */
   .video-container{
@@ -347,12 +321,6 @@
 
     <div class="balloons">🎈 🎁 🎂 💙 🎈</div>
 
-    <div class="music-bar">
-      <div class="vinyl" id="vinyl"></div>
-      <span id="music-status">Press play to begin</span>
-    </div>
-    <div id="spotify-embed"></div>
-
     <div class="video-container">
       <video id="bday-video" controls playsinline>
         <source src="9ba4cd35-cd66-431d-bf41-86b28b05382c.mov" type="video/quicktime">
@@ -384,7 +352,6 @@
 
     <div class="buttons-container">
       <button class="cta-button" onclick="burstPetals()">🎊 Celebrate! 🎊</button>
-      <button class="cta-button secondary" id="music-toggle-btn">🎵 Pause Music 🎵</button>
     </div>
 
     <div class="footer">
@@ -392,44 +359,7 @@
     </div>
   </div>
 
-  <!-- Spotify iFrame API: lets us play/pause the track from our own script -->
-  <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   <script>
-    let spotifyController = null;
-    let spotifyReady = false;
-    let userPausedMusic = false;
-
-    window.onSpotifyIframeApiReady = (IFrameAPI) => {
-      const element = document.getElementById('spotify-embed');
-      const options = { uri: 'spotify:track:1Q7EgiMOuwDcB0PJC6AzON', width: '1', height: '1' };
-      IFrameAPI.createController(element, options, (controller) => {
-        spotifyController = controller;
-        controller.addListener('ready', () => { spotifyReady = true; });
-        controller.addListener('playback_update', (e) => {
-          const status = document.getElementById('music-status');
-          const vinyl = document.getElementById('vinyl');
-          if (!e.data.isPaused) {
-            status.textContent = 'Best Part — Daniel Caesar & H.E.R.';
-            vinyl.classList.add('spinning');
-          } else {
-            vinyl.classList.remove('spinning');
-            if (!video.played.length || video.paused === false) {
-              // leave whatever status was set elsewhere
-            }
-          }
-        });
-      });
-    };
-
-    function startMusic(){
-      if (spotifyController) {
-        spotifyController.play();
-      } else {
-        // controller not ready yet, retry shortly
-        setTimeout(startMusic, 400);
-      }
-    }
-
     /* ---------- Gate / open card ---------- */
     const gate = document.getElementById('gate');
     const card = document.getElementById('main-card');
@@ -437,37 +367,8 @@
     document.getElementById('open-card-btn').addEventListener('click', () => {
       gate.classList.add('hidden');
       card.classList.add('revealed');
-      startMusic();
       burstPetals();
       setTimeout(burstPetals, 900);
-    });
-
-    /* ---------- Video <-> music sync ---------- */
-    const video = document.getElementById('bday-video');
-    const musicStatus = document.getElementById('music-status');
-
-    video.addEventListener('play', () => {
-      if (spotifyController) spotifyController.pause();
-      musicStatus.textContent = 'Playing video…';
-    });
-
-    video.addEventListener('pause', () => {
-      // only resume the song if the video actually finished, not on a manual pause mid-way
-      if (video.ended) return;
-    });
-
-    video.addEventListener('ended', () => {
-      if (spotifyController && !userPausedMusic) {
-        spotifyController.resume();
-      }
-    });
-
-    /* ---------- Manual music toggle button ---------- */
-    document.getElementById('music-toggle-btn').addEventListener('click', function(){
-      if (!spotifyController) return;
-      spotifyController.togglePlay();
-      userPausedMusic = !userPausedMusic;
-      this.textContent = userPausedMusic ? '🎵 Play Music 🎵' : '🎵 Pause Music 🎵';
     });
 
     /* ---------- Floating petals ---------- */
