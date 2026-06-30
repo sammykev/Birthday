@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 Happy Birthday! 🎉</title>
+    <title>🎉 Happy Birthday, Chesca! 💙</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
             background-size: 400% 400%;
@@ -39,14 +39,30 @@
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             border-radius: 30px;
-            padding: 60px 40px;
-            max-width: 800px;
+            padding: 60px 50px;
+            max-width: 900px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
             text-align: center;
             animation: slideUp 0.8s ease-out;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+
+        .container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
         }
 
         @keyframes slideUp {
@@ -72,12 +88,12 @@
         }
 
         h1 {
-            font-size: 4em;
+            font-size: 3.5em;
             background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             animation: textGlow 2s ease-in-out infinite;
         }
 
@@ -87,38 +103,66 @@
         }
 
         .subtitle {
-            font-size: 1.5em;
+            font-size: 1.8em;
             color: #764ba2;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             font-weight: bold;
         }
 
-        .content {
-            font-size: 1.2em;
-            color: #333;
-            line-height: 1.8;
-            margin-bottom: 40px;
+        .nickname {
+            font-size: 1.4em;
+            color: #f093fb;
+            margin-bottom: 30px;
+            font-style: italic;
+            font-weight: 500;
         }
-
-        .balloon {
-            display: inline-block;
-            width: 50px;
-            height: 60px;
-            border-radius: 50% 50% 50% 0;
-            margin: 0 10px;
-            animation: float 3s ease-in-out infinite;
-            font-size: 30px;
-        }
-
-        .balloon:nth-child(1) { animation-delay: 0s; transform: rotate(-5deg); }
-        .balloon:nth-child(2) { animation-delay: 0.3s; transform: rotate(5deg); }
-        .balloon:nth-child(3) { animation-delay: 0.6s; transform: rotate(-5deg); }
-        .balloon:nth-child(4) { animation-delay: 0.9s; transform: rotate(5deg); }
-        .balloon:nth-child(5) { animation-delay: 1.2s; transform: rotate(-5deg); }
 
         .balloons {
             margin: 30px 0;
-            letter-spacing: 5px;
+            letter-spacing: 8px;
+            font-size: 2.5em;
+            animation: slideIn 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .letter-content {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+            border-left: 5px solid #667eea;
+            padding: 40px 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+            line-height: 1.9;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .letter-content p {
+            margin-bottom: 20px;
+        }
+
+        .letter-content strong {
+            color: #764ba2;
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            color: #764ba2;
+            font-weight: bold;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
         }
 
         .cta-button {
@@ -133,7 +177,7 @@
             transition: all 0.3s ease;
             text-decoration: none;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            margin: 10px;
+            font-weight: 600;
         }
 
         .cta-button:hover {
@@ -145,10 +189,26 @@
             transform: translateY(-1px);
         }
 
+        .cta-button.secondary {
+            background: linear-gradient(135deg, #f093fb, #4facfe);
+        }
+
+        .heart {
+            color: #f093fb;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
         .footer {
             margin-top: 40px;
             color: #999;
-            font-size: 0.9em;
+            font-size: 0.95em;
+            border-top: 2px solid #f0f0f0;
+            padding-top: 20px;
         }
 
         @media (max-width: 600px) {
@@ -157,66 +217,141 @@
             }
 
             h1 {
-                font-size: 2.5em;
+                font-size: 2.2em;
             }
 
             .subtitle {
-                font-size: 1.2em;
+                font-size: 1.4em;
             }
 
-            .content {
+            .nickname {
+                font-size: 1.1em;
+            }
+
+            .letter-content {
+                padding: 25px 20px;
                 font-size: 1em;
+            }
+
+            .balloons {
+                font-size: 1.8em;
+                letter-spacing: 5px;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="emoji-container">🎂</div>
+        <div class="emoji-container">🧁</div>
         
-        <h1>🎉 Happy Birthday! 🎉</h1>
-        
-        <p class="subtitle">A Special Day for Someone Special</p>
+        <h1>🎉 Happy Birthday! 💙</h1>
+        <p class="subtitle">Our Beautiful Ogechi</p>
+        <p class="nickname">"Our Sweet Cupcake" 🧁</p>
 
         <div class="balloons">
-            <span class="balloon">🎈</span>
-            <span class="balloon">🎈</span>
-            <span class="balloon">🎈</span>
-            <span class="balloon">🎈</span>
-            <span class="balloon">🎈</span>
+            🎈 🎁 🎂 💙 🎈
         </div>
 
-        <div class="content">
+        <div class="letter-content">
             <p>
-                Wishing you a day filled with joy, laughter, and all your favorite things! 
-                May this year bring you new adventures, wonderful moments, and endless happiness. 
-                Celebrate yourself today—you deserve it! 🌟
+                My sweet cupcake 🧁, our baby girl, our beautiful and elegant Ogechi. 💙
             </p>
+
+            <p>
+                When you look in the mirror, I hope you see just how beautiful you are. I hope you love your kind heart, your gentle soul, your bright contagious smile, and the warmth in your hugs. I hope one day you see yourself the same way we see you because you truly are amazing.
+            </p>
+
+            <p>
+                You're everything worth celebrating simply because you're you. We found the best girl in the worst generation, and there's no way we're letting her go. ❤️
+            </p>
+
+            <p>
+                <strong>When we first met in 2021,</strong> none of us were looking for friendship or love—we were honestly running away from it. But you were so kind, gentle, and genuine that, without realizing it, our hearts opened up to you. Before we knew it, you had become one of the most important people in our lives.
+            </p>
+
+            <p>
+                Looking back now, I can truly say you've been an incredible sister and friend. Through every season, you've shown us what true friendship looks like. You've supported us, stood by us, and loved us wholeheartedly.
+            </p>
+
+            <p>
+                I know I haven't always been easy to deal with (😂 you already know who's talking), but thank you for never giving up on me. We love and cherish you more than words can express.
+            </p>
+
+            <p>
+                Sometimes you were our safe place. We found comfort in each other, laughed until our stomachs hurt, and smiled so much our cheeks couldn't take it anymore. Those memories will always have a special place in our hearts.
+            </p>
+
+            <p>
+                I'm so proud of the woman you're becoming. You deserve every beautiful thing life has in store for you. I want you to always remember that you are deeply loved. Your happiness genuinely brings joy to our hearts.
+            </p>
+
+            <p>
+                We wish we could marry ourselves, but girl… you people love Preeq too much. 😂❤️
+            </p>
+
+            <p>
+                As we continue this journey of friendship and sisterhood, I pray our bond only grows stronger. May no distance or distraction ever come between us.
+            </p>
+
+            <p style="color: #f093fb; font-weight: bold;">
+                And please don't forget to be sending me money abeg. 😂💸
+            </p>
+
+            <p>
+                Please accept this little birthday gift. 🎁 It may be small, but it comes with so much love, appreciation, and intention. It's our little way of reminding you that you are seen, valued, and deeply loved.
+            </p>
+
+            <p style="margin-top: 30px; font-size: 1.2em;">
+                <strong>Happy Birthday, sweetheart. 🥹💙</strong>
+            </p>
+
+            <p>
+                I pray God blesses you with many more beautiful years filled with peace, happiness, good health, endless laughter, and overflowing love. May every sincere desire of your heart be fulfilled, and may this new chapter bring you even closer to everything you've been praying for.
+            </p>
+
+            <p style="font-size: 1.15em; font-weight: bold; color: #764ba2;">
+                We love you so much, Chesca. Today and always. 🥹💙
+            </p>
+
+            <div class="signature">
+                <p>With all our love,</p>
+                <p>Your forever lovers and crush 🤍</p>
+            </div>
         </div>
 
-        <button class="cta-button" onclick="playConfetti()">🎊 Celebrate! 🎊</button>
-        <button class="cta-button" onclick="playMusic()">🎵 Play Music 🎵</button>
+        <div class="buttons-container">
+            <button class="cta-button" onclick="playConfetti()">🎊 Celebrate! 🎊</button>
+            <button class="cta-button secondary" onclick="playMusic()">🎵 Play Music 🎵</button>
+        </div>
 
         <div class="footer">
-            <p>Made with 💜 and lots of birthday cheer!</p>
+            <p>Made with <span class="heart">💙</span> and so much love for an amazing friend and sister!</p>
         </div>
     </div>
 
     <script>
         function createConfetti() {
-            const confettiPieces = 50;
-            const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#95E1D3', '#F38181', '#AA96DA', '#FCBAD3', '#A8D8EA'];
+            const confettiPieces = 80;
+            const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#95E1D3', '#F38181', '#AA96DA', '#FCBAD3', '#A8D8EA', '#667eea', '#f093fb'];
 
             for (let i = 0; i < confettiPieces; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + '%';
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animation = `fall ${2 + Math.random() * 1}s linear forwards`;
+                confetti.style.animation = `fall ${2 + Math.random() * 1.5}s linear forwards`;
                 confetti.style.opacity = Math.random() * 0.7 + 0.3;
                 document.body.appendChild(confetti);
 
-                setTimeout(() => confetti.remove(), 3000);
+                setTimeout(() => confetti.remove(), 3500);
             }
         }
 
@@ -236,8 +371,7 @@
         }
 
         function playMusic() {
-            // You can replace this with an actual audio file
-            alert('🎵 Birthday music would play here! 🎵\n\nYou can customize this with your favorite song!');
+            alert('🎵 Birthday music would play here! 🎵\n\nSuggestion: Play "Happy Birthday" or any of Chesca\'s favorite songs! 💙');
         }
 
         // Auto-play confetti on page load
