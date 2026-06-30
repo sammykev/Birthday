@@ -9,15 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Mulish:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#E8D8C4;       /* warm parchment — text on dark */
-    --blush:#2A3A52;       /* muted blue — surface tint */
-    --rose:#5B9BD5;        /* bright blue — primary accent */
-    --plum:#1A2535;        /* deep slate blue — page bg */
-    --plum-soft:#8B5E3C;   /* warm brown — secondary accent */
-    --gold:#3A7CC4;        /* mid blue */
-    --gold-soft:#C4956A;   /* caramel brown — warm highlight */
-    --surface:#1F2E42;     /* card/panel surface */
-    --surface2:#243249;    /* slightly lighter panel */
+    --cream:#E8D8C4;
+    --blush:#2A3A52;
+    --rose:#5B9BD5;
+    --plum:#1A2535;
+    --plum-soft:#8B5E3C;
+    --gold:#3A7CC4;
+    --gold-soft:#C4956A;
+    --surface:#1F2E42;
+    --surface2:#243249;
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -34,7 +34,6 @@
     overflow-x:hidden;
   }
 
-  /* ---------- Cursor sparkles ---------- */
   .cursor-spark{
     position:fixed; pointer-events:none; z-index:9999;
     border-radius:50%; animation:sparkFade 0.7s ease-out forwards;
@@ -44,7 +43,6 @@
     100%{ opacity:0; transform:scale(0) translate(var(--sx),var(--sy)); }
   }
 
-  /* ---------- Gate ---------- */
   #gate{
     position:fixed; inset:0;
     display:flex; flex-direction:column;
@@ -97,17 +95,14 @@
   }
   .open-button:hover{ transform:translateY(-3px); box-shadow:0 18px 36px rgba(44,26,14,0.36); }
 
-  /* ---------- Petals ---------- */
   .petal{ position:fixed; top:-5%; pointer-events:none; z-index:60; border-radius:60% 0 60% 0; }
 
-  /* ---------- Two-column landscape layout ---------- */
   #main-card{
     display:none;
     min-height:100vh;
   }
   #main-card.revealed{ display:flex; }
 
-  /* LEFT PANEL — sticky, holds header + video */
   .left-panel{
     width:42%;
     position:sticky; top:0;
@@ -136,7 +131,6 @@
   .nickname{ font-family:'Mulish',sans-serif; font-size:0.78em; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-soft); font-weight:600; }
   .balloons{ letter-spacing:6px; font-size:1.5em; filter:saturate(0.9); }
 
-  /* Inline video in left panel */
   .video-wrap{
     width:100%; border-radius:14px; overflow:hidden;
     box-shadow:0 10px 28px rgba(44,26,14,0.22);
@@ -144,7 +138,6 @@
   }
   .video-wrap video{ width:100%; height:auto; display:block; }
 
-  /* ---------- RIGHT PANEL — scrollable content ---------- */
   .right-panel{
     flex:1;
     overflow-y:auto;
@@ -153,7 +146,6 @@
     background-color:var(--surface2);
   }
 
-  /* Friendship countdown */
   .countdown-bar{ display:flex; flex-wrap:wrap; gap:12px; }
   .count-box{
     background:rgba(255,255,255,0.05);
@@ -164,7 +156,6 @@
   .count-num{ font-family:'Playfair Display',serif; font-size:1.7em; font-weight:700; color:var(--cream); display:block; }
   .count-label{ font-size:0.68em; letter-spacing:0.08em; text-transform:uppercase; color:var(--rose); }
 
-  /* Letter */
   .letter-content{
     background:rgba(255,255,255,0.05);
     border-left:4px solid var(--rose);
@@ -181,7 +172,6 @@
   @keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:0; } }
   .signature{ text-align:right; margin-top:22px; font-family:'Playfair Display',serif; font-style:italic; color:var(--gold-soft); font-weight:600; }
 
-  /* Wishes */
   .wishes-title{ font-family:'Playfair Display',serif; font-size:1.3em; color:var(--cream); margin-bottom:18px; }
   .sticky-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; }
   .sticky{
@@ -201,7 +191,6 @@
   /* ---------- Gallery ---------- */
   .gallery-title{ font-family:'Playfair Display',serif; font-size:1.3em; color:var(--cream); margin-bottom:18px; }
 
-  /* Masonry via CSS columns */
   .gallery-grid{
     columns:3 140px;
     column-gap:12px;
@@ -211,18 +200,15 @@
     position:relative;
     margin-bottom:12px;
     cursor:pointer;
-    /* Polaroid frame */
     padding:8px 8px 28px 8px;
     background:#fff;
     box-shadow:0 6px 24px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.3);
-    transform:rotate(var(--tilt, 0deg));
     transition:transform 0.25s ease, box-shadow 0.25s ease;
     border-radius:2px;
   }
   .gallery-item:hover{
-    transform:rotate(0deg) scale(1.05);
+    transform:scale(1.04);
     box-shadow:0 12px 40px rgba(91,155,213,0.5), 0 4px 12px rgba(0,0,0,0.4);
-    z-index:2;
   }
   .gallery-item .media-wrap{
     width:100%; overflow:hidden; background:#111;
@@ -231,7 +217,6 @@
   .gallery-item video,
   .gallery-item img{ width:100%; height:auto; display:block; pointer-events:none; aspect-ratio:9/16; object-fit:cover; }
 
-  /* Play badge */
   .play-badge{
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:center;
@@ -241,7 +226,6 @@
   }
   .gallery-item:hover .play-badge{ background:rgba(0,0,0,0.1); }
 
-  /* Number badge */
   .num-badge{
     position:absolute; top:6px; left:8px;
     background:rgba(26,37,53,0.8);
@@ -251,14 +235,12 @@
     letter-spacing:0.04em;
   }
 
-  /* Polaroid label */
   .polaroid-label{
     text-align:center; font-family:'Lora',serif; font-style:italic;
     font-size:0.7em; color:#444; padding-top:4px;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
 
-  /* Lightbox */
   #lightbox{
     position:fixed; inset:0; z-index:200;
     background:rgba(10,15,25,0.96);
@@ -309,7 +291,6 @@
   }
   .lb-dot.active{ background:var(--rose); transform:scale(1.3); }
 
-  /* Buttons */
   .buttons-container{ display:flex; flex-wrap:wrap; gap:12px; }
   .cta-button{
     font-family:'Mulish',sans-serif;
@@ -324,7 +305,6 @@
   .cta-button.secondary{ background:linear-gradient(135deg, var(--gold), var(--gold-soft)); color:var(--plum); }
   .cta-button.share-btn{ background:linear-gradient(135deg,#5C3317,#3A1F0A); }
 
-  /* Toast */
   .toast{
     position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(20px);
     background:var(--plum); color:var(--cream);
@@ -341,7 +321,6 @@
 
   .footer{ color:rgba(232,216,196,0.45); font-size:0.85em; font-family:'Mulish',sans-serif; border-top:1px solid rgba(255,255,255,0.1); padding-top:16px; }
 
-  /* ---------- Portrait / narrow fallback ---------- */
   @media(max-width:700px),(orientation:portrait) and (max-width:900px){
     #main-card.revealed{ flex-direction:column; }
     .left-panel{
@@ -362,7 +341,6 @@
 </head>
 <body>
 
-  <!-- Gate -->
   <div id="gate">
     <div class="envelope"><div class="seal">💙</div></div>
     <p class="gate-title">A little something for you</p>
@@ -374,7 +352,6 @@
 
   <div id="main-card">
 
-    <!-- LEFT: sticky header + video -->
     <div class="left-panel">
       <div class="candles-row" id="candles">
         <span class="candle">🕯️</span>
@@ -399,48 +376,45 @@
       </div>
     </div>
 
-    <!-- RIGHT: scrollable content -->
     <div class="right-panel">
 
-      <!-- Friendship countdown -->
       <div class="countdown-bar" id="countdown-bar"></div>
 
-      <!-- Typewriter letter -->
       <div class="letter-content" id="letter-content"></div>
 
       <!-- Gallery -->
       <div>
         <p class="gallery-title">🎞️ Our Memories Together</p>
         <div class="gallery-grid" id="gallery-grid">
-          <div class="gallery-item" style="--tilt:-2deg" data-src="IMG_2053.mp4" data-caption="Us being us 💙">
+          <div class="gallery-item" data-src="IMG_2053.mp4" data-caption="Us being us 💙">
             <div class="media-wrap"><video src="IMG_2053.mp4" muted playsinline preload="metadata"></video><div class="play-badge">▶</div><span class="num-badge">1 of 8</span></div>
             <div class="polaroid-label">Us being us 💙</div>
           </div>
-          <div class="gallery-item" style="--tilt:1.5deg" data-src="IMG_2054.mp4" data-caption="Good times 🎀">
+          <div class="gallery-item" data-src="IMG_2054.mp4" data-caption="Good times 🎀">
             <div class="media-wrap"><video src="IMG_2054.mp4" muted playsinline preload="metadata"></video><div class="play-badge">▶</div><span class="num-badge">2 of 8</span></div>
             <div class="polaroid-label">Good times 🎀</div>
           </div>
-          <div class="gallery-item" style="--tilt:-1deg" data-src="IMG_2055.mp4" data-caption="Pure joy ✨">
+          <div class="gallery-item" data-src="IMG_2055.mp4" data-caption="Pure joy ✨">
             <div class="media-wrap"><video src="IMG_2055.mp4" muted playsinline preload="metadata"></video><div class="play-badge">▶</div><span class="num-badge">3 of 8</span></div>
             <div class="polaroid-label">Pure joy ✨</div>
           </div>
-          <div class="gallery-item" style="--tilt:2.5deg" data-src="IMG_2056.mp4" data-caption="Laughs & love 😂">
+          <div class="gallery-item" data-src="IMG_2056.mp4" data-caption="Laughs & love 😂">
             <div class="media-wrap"><video src="IMG_2056.mp4" muted playsinline preload="metadata"></video><div class="play-badge">▶</div><span class="num-badge">4 of 8</span></div>
             <div class="polaroid-label">Laughs & love 😂</div>
           </div>
-          <div class="gallery-item" style="--tilt:-2deg" data-src="IMG_2057.mp4" data-caption="Sisters forever 🤍">
+          <div class="gallery-item" data-src="IMG_2057.mp4" data-caption="Sisters forever 🤍">
             <div class="media-wrap"><video src="IMG_2057.mp4" muted playsinline preload="metadata"></video><div class="play-badge">▶</div><span class="num-badge">5 of 8</span></div>
             <div class="polaroid-label">Sisters forever 🤍</div>
           </div>
-          <div class="gallery-item" style="--tilt:1deg" data-src="IMG_2058.mp4" data-caption="Memories 🎞️">
+          <div class="gallery-item" data-src="IMG_2058.mp4" data-caption="Memories 🎞️">
             <div class="media-wrap"><video src="IMG_2058.mp4" muted playsinline preload="metadata"></video><div class="play-badge">▶</div><span class="num-badge">6 of 8</span></div>
             <div class="polaroid-label">Memories 🎞️</div>
           </div>
-          <div class="gallery-item" style="--tilt:-1.5deg" data-src="IMG_2059.mp4" data-caption="The vibe 💫">
+          <div class="gallery-item" data-src="IMG_2059.mp4" data-caption="The vibe 💫">
             <div class="media-wrap"><video src="IMG_2059.mp4" muted playsinline preload="metadata"></video><div class="play-badge">▶</div><span class="num-badge">7 of 8</span></div>
             <div class="polaroid-label">The vibe 💫</div>
           </div>
-          <div class="gallery-item" style="--tilt:2deg" data-src="IMG_2060.mp4" data-caption="Always 💙">
+          <div class="gallery-item" data-src="IMG_2060.mp4" data-caption="Always 💙">
             <div class="media-wrap"><video src="IMG_2060.mp4" muted playsinline preload="metadata"></video><div class="play-badge">▶</div><span class="num-badge">8 of 8</span></div>
             <div class="polaroid-label">Always 💙</div>
           </div>
@@ -487,10 +461,9 @@
         <p>Made with <span class="heart">💙</span> and so much love for an amazing friend and sister!</p>
       </div>
 
-    </div><!-- /right-panel -->
-  </div><!-- /main-card -->
+    </div>
+  </div>
 
-  <!-- Lightbox -->
   <div id="lightbox">
     <button id="lightbox-close">✕</button>
     <span id="lightbox-counter"></span>
@@ -502,7 +475,6 @@
   </div>
 
   <script>
-    /* ---------- Cursor sparkles ---------- */
     document.addEventListener('mousemove', (e) => {
       if (Math.random() > 0.35) return;
       const s = document.createElement('div');
@@ -514,7 +486,6 @@
       setTimeout(() => s.remove(), 700);
     });
 
-    /* ---------- Gate ---------- */
     document.getElementById('open-card-btn').addEventListener('click', () => {
       document.getElementById('gate').classList.add('hidden');
       document.getElementById('main-card').classList.add('revealed');
@@ -525,7 +496,6 @@
       startTypewriter();
     });
 
-    /* ---------- Petals ---------- */
     (function(){
       const ps = document.createElement('style');
       ps.innerHTML = `@keyframes petalFall{0%{transform:translate(0,-10vh) rotate(0deg)}100%{transform:translate(var(--drift),110vh) rotate(380deg)}}`;
@@ -548,7 +518,6 @@
       }
     }
 
-    /* ---------- Candles ---------- */
     const candleHint = document.getElementById('candle-hint');
     let wishCount = 0;
     document.querySelectorAll('.candle').forEach(c => {
@@ -571,7 +540,6 @@
       else candleHint.textContent = '🥹 All wishes made! May they all come true!';
     });
 
-    /* ---------- Friendship countdown ---------- */
     const start = new Date('2021-01-01'), now = new Date();
     const diffDays = Math.floor((now - start) / 86400000);
     const diffYears = Math.floor(diffDays / 365);
@@ -585,7 +553,6 @@
       bar.appendChild(b);
     });
 
-    /* ---------- Typewriter ---------- */
     const paragraphs = [
       `My sweet cupcake 🧁, our baby girl, our beautiful and elegant Ogechi. 💙`,
       `When you look in the mirror, I hope you see just how beautiful you are. I hope you love your kind heart, your gentle soul, your bright contagious smile, and the warmth in your hug.`,
@@ -647,8 +614,7 @@
     const items = Array.from(document.querySelectorAll('.gallery-item'));
     let currentIdx = 0;
 
-    /* First-frame poster + hover preview */
-    items.forEach((item, i) => {
+    items.forEach((item) => {
       const vid = item.querySelector('video');
       if (!vid) return;
       vid.addEventListener('loadedmetadata', () => { vid.currentTime = 0.001; });
@@ -656,7 +622,6 @@
       item.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0.001; });
     });
 
-    /* Build dots */
     items.forEach((_, i) => {
       const dot = document.createElement('span');
       dot.className = 'lb-dot';
@@ -685,7 +650,6 @@
       lightbox.classList.remove('open');
     }
 
-    /* Auto-advance */
     lbMedia.addEventListener('ended', () => openLightbox((currentIdx + 1) % items.length));
 
     items.forEach((item, i) => item.addEventListener('click', () => openLightbox(i)));
@@ -708,7 +672,6 @@
       if (e.key === 'ArrowRight') openLightbox((currentIdx + 1) % items.length);
     });
 
-    /* Swipe gestures */
     let swipeStartX = 0;
     lightbox.addEventListener('touchstart', (e) => { swipeStartX = e.changedTouches[0].clientX; }, { passive: true });
     lightbox.addEventListener('touchend', (e) => {
@@ -718,7 +681,6 @@
       else openLightbox((currentIdx - 1 + items.length) % items.length);
     });
 
-    /* ---------- Share ---------- */
     document.getElementById('share-btn').addEventListener('click', async () => {
       const toast = document.getElementById('toast');
       const url = window.location.href;
