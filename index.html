@@ -199,16 +199,45 @@
   }
   .count-label{ font-size:0.72em; letter-spacing:0.08em; text-transform:uppercase; color:var(--rose); }
 
-  /* ---------- Video (inline) ---------- */
+  /* ---------- Video ---------- */
   .video-container{
     margin:34px 0;
     border-radius:18px; overflow:hidden;
     box-shadow:0 16px 36px rgba(91,42,58,0.18);
     border:1px solid var(--gold-soft);
     display:none;
+    transition:none;
   }
   .video-container.visible{ display:block; }
   .video-container video{ width:100%; height:auto; display:block; }
+
+  /* PiP mode — applied via JS when video scrolls out of view */
+  .video-container.pip{
+    position:fixed;
+    bottom:20px; right:20px;
+    width:220px; margin:0;
+    border:2px solid var(--gold-soft);
+    box-shadow:0 10px 30px rgba(91,42,58,0.4);
+    z-index:40;
+    cursor:grab;
+    border-radius:14px;
+    transition:box-shadow 0.2s;
+  }
+  .video-container.pip:active{ cursor:grabbing; box-shadow:0 16px 40px rgba(91,42,58,0.5); }
+  .pip-close{
+    display:none;
+    position:absolute; top:6px; right:8px;
+    background:rgba(91,42,58,0.75); color:#fff;
+    border:none; border-radius:50%;
+    width:22px; height:22px; font-size:13px;
+    line-height:22px; text-align:center;
+    cursor:pointer; z-index:41;
+  }
+  .video-container.pip .pip-close{ display:block; }
+
+  @media(max-width:600px){
+    .video-container.pip{ width:160px; }
+  }
 
   /* ---------- Typewriter letter ---------- */
   .letter-content{
@@ -355,6 +384,7 @@
     <div class="balloons">🎈 🎁 🎂 💙 🎈</div>
 
     <div class="video-container" id="video-pip">
+      <button class="pip-close" id="pip-close" title="Close">✕</button>
       <video id="bday-video" controls playsinline autoplay muted loop>
         <source src="9ba4cd35-cd66-431d-bf41-86b28b05382c.mov" type="video/quicktime">
         Your browser does not support the video tag.
@@ -435,11 +465,12 @@
     document.getElementById('open-card-btn').addEventListener('click', () => {
       gate.classList.add('hidden');
       card.classList.add('revealed');
-      document.getElementById('video-pip').classList.add('visible');
+      pipEl.classList.add('visible');
       document.getElementById('bday-video').play();
       burstPetals();
       setTimeout(burstPetals, 900);
       startTypewriter();
+      setTimeout(() => observer.observe(pipEl), 800);
     });
 
     /* ---------- Floating petals ---------- */
@@ -592,6 +623,71 @@
 
       typeNextParagraph();
     }
+
+    /* ---------- PiP: scroll-triggered + draggable ---------- */
+    const pipEl = document.getElementById('video-pip');
+    let pipDismissed = false;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (pipDismissed) return;
+      const entry = entries[0];
+      if (!entry.isIntersecting) {
+        pipEl.classList.add('pip');
+      } else {
+        pipEl.classList.remove('pip');
+        pipEl.style.left = '';
+        pipEl.style.top = '';
+        pipEl.style.bottom = '';
+        pipEl.style.right = '';
+      }
+    }, { threshold: 0.1 });
+
+    // Close button
+    document.getElementById('pip-close').addEventListener('click', (e) => {
+      e.stopPropagation();
+      pipEl.classList.remove('pip');
+      pipEl.style.display = 'none';
+      pipDismissed = true;
+      observer.disconnect();
+    });
+
+    // Drag (mouse + touch)
+    let dragging = false, startX, startY, origLeft, origTop;
+
+    function onDragStart(e) {
+      if (!pipEl.classList.contains('pip')) return;
+      dragging = true;
+      const touch = e.touches ? e.touches[0] : e;
+      const rect = pipEl.getBoundingClientRect();
+      startX = touch.clientX - rect.left;
+      startY = touch.clientY - rect.top;
+      pipEl.style.right = 'auto';
+      pipEl.style.bottom = 'auto';
+      pipEl.style.left = rect.left + 'px';
+      pipEl.style.top = rect.top + 'px';
+      e.preventDefault();
+    }
+
+    function onDragMove(e) {
+      if (!dragging) return;
+      const touch = e.touches ? e.touches[0] : e;
+      const x = touch.clientX - startX;
+      const y = touch.clientY - startY;
+      const maxX = window.innerWidth - pipEl.offsetWidth;
+      const maxY = window.innerHeight - pipEl.offsetHeight;
+      pipEl.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
+      pipEl.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+      e.preventDefault();
+    }
+
+    function onDragEnd() { dragging = false; }
+
+    pipEl.addEventListener('mousedown', onDragStart);
+    pipEl.addEventListener('touchstart', onDragStart, { passive: false });
+    document.addEventListener('mousemove', onDragMove);
+    document.addEventListener('touchmove', onDragMove, { passive: false });
+    document.addEventListener('mouseup', onDragEnd);
+    document.addEventListener('touchend', onDragEnd);
 
     /* ---------- Share button ---------- */
     document.getElementById('share-btn').addEventListener('click', async () => {
